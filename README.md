@@ -7,7 +7,7 @@ Una aplicación web full stack que se integra con la API de Spotify para mostrar
 ## 📸 Vista previa
 
 <!-- Si tienes imágenes de la app, agrega aquí una captura de pantalla -->
-![Dashboard Preview](./Dashboard.png)
+![Dashboard Preview](./Dashboard2.png)
 
 ---
 
