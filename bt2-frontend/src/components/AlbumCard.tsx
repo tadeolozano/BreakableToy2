@@ -9,7 +9,8 @@ const AlbumCard: React.FC<AlbumCardProps> = ({ title, imageUrl }) => {
   return (
     <div
       style={{
-        width: 160,
+        width: 180,
+        
         backgroundColor: '#fafafa',
         borderRadius: '12px',
         padding: '0.75rem',

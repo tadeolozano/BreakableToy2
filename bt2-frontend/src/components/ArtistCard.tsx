@@ -19,7 +19,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ name, imageUrl, genres = [], po
         boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
         textAlign: 'center',
         transition: 'transform 0.2s',
-        
+        color: '#333',
       }}
       onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
       onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)')}

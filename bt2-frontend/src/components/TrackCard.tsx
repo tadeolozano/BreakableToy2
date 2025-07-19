@@ -19,6 +19,7 @@ const TrackCard: React.FC<TrackCardProps> = ({ title, artist, imageUrl, previewU
         padding: '0.75rem',
         boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
         transition: 'transform 0.2s',
+        color: '#333',
       }}
       onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.02)')}
       onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)')}

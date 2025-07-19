@@ -46,141 +46,174 @@ const DashboardPage: React.FC = () => {
   };
 
   return (
-    <div
-      style={{
-        padding: '2rem',
-        maxWidth: '1200px',
-        margin: '0 auto',
-        fontFamily: 'sans-serif',
-        position: 'relative',
-      }}
-    >
-      {/* Perfil arriba a la derecha */}
-      {user && (
-        <div
-          style={{
-            position: 'absolute',
-            top: '1.5rem',
-            right: '1.5rem',
-            cursor: 'pointer',
-          }}
-          onClick={() => navigate('/me')}
-        >
+    <div style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden', backgroundColor: '#121212' }}>
+      {/* 🎨 Fondo de imágenes */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 0,
+          display: 'flex',
+          flexWrap: 'wrap',
+          opacity: 0.15,
+          filter: 'blur(8px)',
+          pointerEvents: 'none',
+        }}
+      >
+        {topArtists.map((artist) => (
           <img
-            src={user.images?.[0]?.url ?? '/placeholder.png'}
-            alt="Profile"
-            title={user.display_name}
+            key={artist.id}
+            src={artist.images?.[0]?.url}
+            alt={artist.name}
             style={{
-              width: 48,
-              height: 48,
-              borderRadius: '50%',
-              border: '2px solid #1db954',
+              width: '20%',
+              height: 'auto',
               objectFit: 'cover',
-              transition: 'transform 0.2s',
+              flexShrink: 0,
             }}
-            onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
-            onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
           />
-        </div>
-      )}
+        ))}
+      </div>
 
-      <SearchBar onSearch={handleSearch} />
-
-
-      {!searchResults && (
-        <>
-          <h2 style={{ marginTop: '3rem', fontSize: '1.8rem' }}>Your Top 10 Artists</h2>
-          <div style={{ marginTop: '1.5rem' }}>
-            <TopArtists artists={topArtists} />
-          </div>
-        </>
-      )}
-
-      {searchResults && (
-        <>
-          <h2 style={{ marginTop: '3rem', fontSize: '1.8rem' }}>Search Results</h2>
+      {/* 🔝 Contenido principal */}
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          padding: '2rem',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          fontFamily: 'sans-serif',
+          color: '#fff',
+        }}
+      >
+        {user && (
           <div
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
-              gap: '2rem',
-              marginTop: '2rem',
+              position: 'absolute',
+              top: '1.5rem',
+              right: '1.5rem',
+              cursor: 'pointer',
             }}
+            onClick={() => navigate('/me')}
           >
-            {/* Artists */}
-            <div>
-              <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Artists</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                {searchResults.artists?.items?.map((artist: any) => (
-                  <Link to={`/artist/${artist.id}`} style={{ textDecoration: 'none', color: 'inherit' }} key={artist.id}>
-                    <ArtistCard
-                      name={artist.name}
-                      imageUrl={artist.images?.[0]?.url ?? null}
-                      genres={artist.genres}
-                      popularity={artist.popularity}
-                      spotifyUrl={artist.external_urls.spotify}
-                    />
-                  </Link>
-                ))}
-              </div>
-            </div>
+            <img
+              src={user.images?.[0]?.url ?? '/placeholder.png'}
+              alt="Profile"
+              title={user.display_name}
+              style={{
+                width: 48,
+                height: 48,
+                borderRadius: '50%',
+                border: '2px solid #1db954',
+                objectFit: 'cover',
+                transition: 'transform 0.2s',
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
+              onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
+            />
+          </div>
+        )}
 
-            {/* Albums */}
-            <div>
-              <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Albums</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                {searchResults.albums?.items?.map((album: any) => (
-                  <Link to={`/album/${album.id}`} style={{ textDecoration: 'none', color: 'inherit' }} key={album.id}>
-                    <AlbumCard
-                      title={album.name}
-                      imageUrl={album.images?.[0]?.url ?? ''}
-                    />
-                  </Link>
-                ))}
-              </div>
-            </div>
+        <SearchBar onSearch={handleSearch} />
 
-            {/* Tracks */}
-            <div>
-              <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Tracks</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                {searchResults.tracks?.items?.map((track: any) => (
-                  <Link to={`/track/${track.id}`} style={{ textDecoration: 'none', color: 'inherit' }} key={track.id}>
-                  <TrackCard
-                    key={track.id}
-                    title={track.name}
-                    artist={track.artists?.[0]?.name ?? 'Unknown Artist'}
-                    previewUrl={track.preview_url}
-                    imageUrl={track.album?.images?.[0]?.url ?? ''}
-
-                  />
-                  </Link>
-                ))}
-              </div>
+        {!searchResults && (
+          <>
+            <h2 style={{ marginTop: '3rem', fontSize: '1.8rem' }}>Your Top 10 Artists</h2>
+            <div style={{ marginTop: '1.5rem' }}>
+              <TopArtists artists={topArtists} />
             </div>
-            {/* Playlists */}
-            <div>
-              <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Playlists</h3>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
-                {searchResults.playlists?.items
-                  ?.filter((playlist: any) => playlist && playlist.id)
-                  .map((playlist: any) => (
-                    <Link to={`/playlist/${playlist.id}`} style={{ textDecoration: 'none', color: 'inherit' }} key={playlist.id}>
-                    <PlaylistCard
-                      key={playlist.id}
-                      id={playlist.id}
-                      name={playlist.name}
-                      imageUrl={playlist.images?.[0]?.url}
-                      externalUrl={playlist.external_urls?.spotify}
-                    />
+          </>
+        )}
+
+        {searchResults && (
+          <>
+            <h2 style={{ marginTop: '3rem', fontSize: '1.8rem' }}>Search Results</h2>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
+                gap: '2rem',
+                marginTop: '2rem',
+              }}
+            >
+              {/* Artists */}
+              <div>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Artists</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                  {searchResults.artists?.items?.map((artist: any) => (
+                    <Link to={`/artist/${artist.id}`} style={{ textDecoration: 'none', color: 'inherit' }} key={artist.id}>
+                      <ArtistCard
+                        name={artist.name}
+                        imageUrl={artist.images?.[0]?.url ?? null}
+                        genres={artist.genres}
+                        popularity={artist.popularity}
+                        spotifyUrl={artist.external_urls.spotify}
+                      />
                     </Link>
                   ))}
+                </div>
+              </div>
+
+              {/* Albums */}
+              <div>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Albums</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                  {searchResults.albums?.items?.map((album: any) => (
+                    <Link to={`/album/${album.id}`} style={{ textDecoration: 'none', color: 'inherit' }} key={album.id}>
+                      <AlbumCard
+                        title={album.name}
+                        imageUrl={album.images?.[0]?.url ?? ''}
+                      />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tracks */}
+              <div>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Tracks</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                  {searchResults.tracks?.items?.map((track: any) => (
+                    <Link to={`/track/${track.id}`} style={{ textDecoration: 'none', color: 'inherit' }} key={track.id}>
+                      <TrackCard
+                        key={track.id}
+                        title={track.name}
+                        artist={track.artists?.[0]?.name ?? 'Unknown Artist'}
+                        previewUrl={track.preview_url}
+                        imageUrl={track.album?.images?.[0]?.url ?? ''}
+                      />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Playlists */}
+              <div>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Playlists</h3>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
+                  {searchResults.playlists?.items
+                    ?.filter((playlist: any) => playlist && playlist.id)
+                    .map((playlist: any) => (
+                      <Link to={`/playlist/${playlist.id}`} style={{ textDecoration: 'none', color: 'inherit' }} key={playlist.id}>
+                        <PlaylistCard
+                          key={playlist.id}
+                          id={playlist.id}
+                          name={playlist.name}
+                          imageUrl={playlist.images?.[0]?.url}
+                          externalUrl={playlist.external_urls?.spotify}
+                        />
+                      </Link>
+                    ))}
+                </div>
               </div>
             </div>
-
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 };
