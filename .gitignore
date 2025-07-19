@@ -1,0 +1,23 @@
+# --- Node (Frontend) ---
+frontend/node_modules/
+frontend/.env
+frontend/dist/
+
+# --- Java / Spring Boot (Backend) ---
+backend/target/
+backend/.idea/
+backend/.classpath
+backend/.project
+backend/.settings/
+backend/.env
+backend/*.iml
+
+# --- General ---
+.DS_Store
+.env
+*.log
+*.tmp
+*.swp
+.vscode/
+*.bak
+*.orig
