@@ -438,7 +438,7 @@ public class SpotifyApiController {
             @CookieValue("access_token") String accessToken,
             @CookieValue("refresh_token") String refreshToken,
             HttpServletResponse response) {
-        String url = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=" + limit;
+        String url = "https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=" + limit;
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);

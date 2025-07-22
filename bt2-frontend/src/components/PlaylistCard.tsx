@@ -23,6 +23,7 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({ name, imageUrl }) => {
           cursor: 'pointer',
           transition: 'transform 0.2s',
           color: '#333',
+          height: '100%',
         }}
         onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.03)')}
         onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)' )}

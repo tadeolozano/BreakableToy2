@@ -88,7 +88,7 @@ const ArtistPage: React.FC = () => {
             <th style={{ padding: '0.5rem' }}>#</th>
             <th style={{ padding: '0.5rem' }}>Image</th>
             <th style={{ padding: '0.5rem' }}>Song Name</th>
-            <th style={{ padding: '0.5rem' }}>Times Played</th>
+            <th style={{ padding: '0.5rem' }}>Popularity</th>
             <th style={{ padding: '0.5rem' }}>Length</th>
           </tr>
         </thead>
@@ -104,7 +104,30 @@ const ArtistPage: React.FC = () => {
                   {track.name}
                 </Link>
               </td>
-              <td style={{ padding: '0.5rem' }}>{track.popularity.toLocaleString()}</td>
+                <td style={{ padding: '0.5rem' }}>
+                <div style={{ width: 100, height: 12, background: '#eee', borderRadius: 6, overflow: 'hidden', position: 'relative' }}>
+                  <div
+                  style={{
+                    width: `${track.popularity}%`,
+                    height: '100%',
+                    background: '#1DB954',
+                    borderRadius: 6,
+                    transition: 'width 0.3s',
+                  }}
+                  />
+                  <span style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  fontSize: 10,
+                  color: '#222',
+                  fontWeight: 600,
+                  }}>
+                  {track.popularity}
+                  </span>
+                </div>
+                </td>
               <td style={{ padding: '0.5rem' }}>{formatDuration(track.duration_ms)}</td>
             </tr>
           ))}

@@ -55,6 +55,22 @@ const MePage: React.FC = () => {
         color: '#111',
       }}
     >
+      <div
+      style={{
+        position: 'absolute',
+        top: '-20px',
+        left: '-20px',
+        right: '-20px',
+        height: '65vh',
+        backgroundImage: `url(${user.images?.[0]?.url || '/placeholder.png'})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        filter: 'blur(20px)',
+        zIndex: -1,
+        maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))',
+        WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))',
+      }}
+    />
       <BackButton />
 
       {/* User Info */}
@@ -89,6 +105,10 @@ const MePage: React.FC = () => {
               color: '#1db954',
               textDecoration: 'none',
               fontWeight: 600,
+              backgroundColor: '#fff',
+              padding: '0.5rem 1rem',
+              borderRadius: '9999px',
+              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
             }}
           >
             View on Spotify ↗
