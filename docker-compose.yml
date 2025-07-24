@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./bt2-backend
+    container_name: bt2-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
+      - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+    networks:
+      - app-net
+
+  frontend:
+    build: ./bt2-frontend
+    container_name: bt2-frontend
+    ports:
+      - "9090:80"
+    environment:
+      - VITE_API_URL=http://bt2-backend:8080
+    networks:
+      - app-net
+    depends_on:
+      - backend
+
+networks:
+  app-net:

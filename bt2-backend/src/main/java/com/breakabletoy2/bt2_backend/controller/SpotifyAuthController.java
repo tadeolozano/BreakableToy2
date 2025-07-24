@@ -54,7 +54,7 @@ public class SpotifyAuthController {
         response.setHeader(HttpHeaders.SET_COOKIE, accessCookie.toString());
         response.addHeader(HttpHeaders.SET_COOKIE, refreshCookie.toString());
 
-        response.sendRedirect("http://127.0.0.1:5173"); // Redirige al frontend
+        response.sendRedirect("http://127.0.0.1:9090"); // Redirige al frontend
     }
 
     @PostMapping("/token/refresh")

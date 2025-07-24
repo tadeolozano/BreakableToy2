@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "./context/AuthContext";
+// import { useAuth } from "./context/AuthContext";
 
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/DashboardPage";
@@ -10,9 +10,9 @@ import MePage from "./pages/MePage";
 import TrackPage from "./pages/TrackPage";
 
 function App() {
-  const { isAuthenticated, loading } = useAuth();
+  // const { isAuthenticated, loading } = useAuth();
 
-  if (loading) return <p>Loading session...</p>;
+  // if (loading) return <p>Loading session...</p>;
 
   return (
 
