@@ -13,23 +13,26 @@ const DashboardPage: React.FC = () => {
   const [topArtists, setTopArtists] = useState<any[]>([]);
   const [searchResults, setSearchResults] = useState<any | null>(null);
   const navigate = useNavigate();
+  const [timeRange, setTimeRange] = useState<string>('short_term');
+
 
   useEffect(() => {
-    const fetchAll = async () => {
-      try {
-        const [userData, topArtistsData] = await Promise.all([
-          getCurrentUser(),
-          getTopArtists(),
-        ]);
-        setUser(userData);
-        setTopArtists(topArtistsData.items);
-      } catch (error) {
-        console.error('Error fetching dashboard data:', error);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const [userData, topArtistsData] = await Promise.all([
+        getCurrentUser(),
+        getTopArtists(10, timeRange),
+      ]);
+      setUser(userData);
+      setTopArtists(topArtistsData.items);
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+    }
+  };
 
-    fetchAll();
-  }, []);
+  fetchData();
+}, [timeRange]);
+
 
   const handleSearch = async (query: string) => {
     if (!query) {
@@ -119,6 +122,27 @@ const DashboardPage: React.FC = () => {
         )}
 
         <SearchBar onSearch={handleSearch} />
+        <div style={{ marginTop: '2rem' }}>
+  <label htmlFor="timeRange" style={{ marginRight: '1rem', fontWeight: 'bold' }}>Time Range:</label>
+  <select
+    id="timeRange"
+    value={timeRange}
+    onChange={(e) => setTimeRange(e.target.value)}
+    style={{
+      padding: '0.5rem',
+      borderRadius: '8px',
+      border: '1px solid #ccc',
+      backgroundColor: '#1c1c1c',
+      color: '#fff',
+      fontWeight: 'bold',
+    }}
+  >
+    <option value="short_term">Last 4 Weeks</option>
+    <option value="medium_term">Last 6 Months</option>
+    <option value="long_term">All Time</option>
+  </select>
+</div>
+
 
         {!searchResults && (
           <>

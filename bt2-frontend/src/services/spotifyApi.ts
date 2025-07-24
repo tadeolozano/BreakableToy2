@@ -12,8 +12,8 @@ export async function getCurrentUserPlaylists() {
   return res.json();
 }
 
-export async function getUserTopSongs(limit: number = 10) {
-  const res = await fetch(`${BASE_URL}/me/top/tracks?time_range=short_term&limit=${limit}`, { credentials: "include" });
+export async function getUserTopSongs(limit: number = 10, timeRange: string) {
+  const res = await fetch(`${BASE_URL}/me/top/tracks?time_range=${timeRange}&limit=${limit}`, { credentials: "include" });
   if (!res.ok) throw new Error("Failed to fetch top songs");
   return res.json();
 }
@@ -63,8 +63,8 @@ async function fetchWithRetry(input: RequestInfo, init?: RequestInit): Promise<R
 }
 
 
-export async function getTopArtists(limit: number = 10) {
-  const res = await fetchWithRetry(`${BASE_URL}/top-artists?limit=${limit}`, { credentials: "include" });
+export async function getTopArtists(limit: number, time_range: string) {
+  const res = await fetchWithRetry(`${BASE_URL}/top/artists?time_range=${time_range}&limit=${limit}`, { credentials: "include" });
   if (!res.ok) throw new Error("Failed to fetch top artists");
   return res.json();
 }
