@@ -27,7 +27,7 @@ const MePage: React.FC = () => {
           getCurrentUser(),
           getCurrentUserPlaylists(),
           getTopArtists(10, timeRangeArtists),
-          getUserTopSongs(10, timeRangeTracks),
+          getUserTopSongs(20, timeRangeTracks),
         ]);
 
         setUser(userData);

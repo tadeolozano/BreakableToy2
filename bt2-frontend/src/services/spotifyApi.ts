@@ -107,7 +107,7 @@ export async function searchSpotify(query: string, types: string[] = ["track", "
 }
 
 export const getPlaylistById = async (id: string) => {
-  const response = await fetchWithRetry(`${BASE_URL}/playlists/${id}`);
+  const response = await fetchWithRetry(`${BASE_URL}/playlists/${id}`, { credentials: "include" });
   if (!response.ok) throw new Error('Failed to fetch playlist');
   return await response.json();
 };
