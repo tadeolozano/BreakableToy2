@@ -14,6 +14,8 @@ const DashboardPage: React.FC = () => {
   const [searchResults, setSearchResults] = useState<any | null>(null);
   const navigate = useNavigate();
 
+  
+
   useEffect(() => {
     const fetchAll = async () => {
       try {
