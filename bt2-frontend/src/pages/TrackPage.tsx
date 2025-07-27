@@ -114,7 +114,7 @@ const TrackPage = () => {
           <div style={{ marginTop: '1rem' }}>
             <iframe
               style={{ borderRadius: '12px' }}
-              src={`https://open.spotify.com/embed/track/${track.id}?utm_source=generator`}
+              src={`https://open.spotify.com/embed/track/${track.id}?utm_source=generator&autoplay=true&theme=1`}
               width="100%"
               height="152"
               frameBorder="0"

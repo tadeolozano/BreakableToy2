@@ -5,8 +5,9 @@ import ArtistCard from '../components/ArtistCard';
 import AlbumCard from '../components/AlbumCard';
 import TrackCard from '../components/TrackCard';
 import PlaylistCard from '../components/PlaylistCard';
-import { getTopArtists, searchSpotify, getCurrentUser } from '../services/spotifyApi';
+import { getTopArtists, searchSpotify, getCurrentUser, logout } from '../services/spotifyApi';
 import { Link, useNavigate } from 'react-router-dom';
+
 
 const DashboardPage: React.FC = () => {
   const [user, setUser] = useState<any>(null);
@@ -47,6 +48,16 @@ const DashboardPage: React.FC = () => {
       console.error('Error during search:', error);
     }
   };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
+  };
+
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden', backgroundColor: '#121212' }}>
@@ -100,6 +111,8 @@ const DashboardPage: React.FC = () => {
               top: '1.5rem',
               right: '1.5rem',
               cursor: 'pointer',
+              alignItems: 'center',
+              display: 'flex',
             }}
             onClick={() => navigate('/me')}
           >
@@ -118,6 +131,25 @@ const DashboardPage: React.FC = () => {
               onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
               onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
             />
+            <button
+              onClick={handleLogout}
+              style={{
+                backgroundColor: '#1db954',
+                color: 'black',
+                padding: '0.4rem 0.8rem',
+                borderRadius: '20px',
+                border: 'none',
+                cursor: 'pointer',
+                fontWeight: 600,
+                fontSize: '0.9rem',
+                transition: 'background 0.2s',
+                marginLeft: '0.5rem',
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#1ed760')}
+              onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#1db954')}
+            >
+              Logout
+            </button>
           </div>
         )}
 
@@ -150,15 +182,15 @@ const DashboardPage: React.FC = () => {
         {!searchResults && (
           <>
             <h2 style={{ marginTop: '3rem', fontSize: '1.8rem' }}>Your Top 10 Artists</h2>
-            <div style={{ marginTop: '1.5rem' }}>
-              <TopArtists artists={topArtists} />
+            <div style={{ marginTop: '1.5rem' }} className='flip-horizontal-fwd'>
+              <TopArtists artists={topArtists.slice(0, 10)} />
             </div>
           </>
         )}
 
         {searchResults && (
           <>
-            <h2 style={{ marginTop: '3rem', fontSize: '1.8rem' }}>Search Results</h2>
+            <h2 style={{ marginTop: '3rem', fontSize: '1.8rem' }}>Search Results for </h2>
             <div
               style={{
                 display: 'grid',
@@ -169,8 +201,17 @@ const DashboardPage: React.FC = () => {
             >
               {/* Artists */}
               <div>
-                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Artists</h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', textAlign: 'center' }}>Artists</h3>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1.5rem',
+                    maxHeight: '650px',
+                    overflowY: 'auto',
+                    alignItems: 'center',
+                  }}
+                >
                   {searchResults.artists?.items?.map((artist: any) => (
                     <Link to={`/artist/${artist.id}`} style={{ textDecoration: 'none', color: 'inherit' }} key={artist.id}>
                       <ArtistCard
@@ -187,8 +228,17 @@ const DashboardPage: React.FC = () => {
 
               {/* Albums */}
               <div>
-                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Albums</h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', textAlign: 'center' }}>Albums</h3>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1.5rem',
+                    maxHeight: '650px',
+                    overflowY: 'auto',
+                    alignItems: 'center',
+                  }}
+                >
                   {searchResults.albums?.items?.map((album: any) => (
                     <Link to={`/album/${album.id}`} style={{ textDecoration: 'none', color: 'inherit' }} key={album.id}>
                       <AlbumCard
@@ -202,8 +252,17 @@ const DashboardPage: React.FC = () => {
 
               {/* Tracks */}
               <div>
-                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Tracks</h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', textAlign: 'center' }}>Tracks</h3>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1.5rem',
+                    maxHeight: '650px',
+                    overflowY: 'auto',
+
+                  }}
+                >
                   {searchResults.tracks?.items?.map((track: any) => (
                     <Link to={`/track/${track.id}`} style={{ textDecoration: 'none', color: 'inherit' }} key={track.id}>
                       <TrackCard
@@ -220,8 +279,20 @@ const DashboardPage: React.FC = () => {
 
               {/* Playlists */}
               <div>
-                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Playlists</h3>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', textAlign: 'center' }}>Playlists</h3>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1.5rem',
+                    maxHeight: '650px',
+                    overflowY: 'auto',
+
+                    alignItems: 'center',
+
+
+                  }}
+                >
                   {searchResults.playlists?.items
                     ?.filter((playlist: any) => playlist && playlist.id)
                     .map((playlist: any) => (

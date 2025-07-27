@@ -112,3 +112,15 @@ export const getPlaylistById = async (id: string) => {
   return await response.json();
 };
 
+export async function logout() {
+  const res = await fetch('/auth/spotify/logout', {
+    method: 'GET',
+    credentials: 'include',
+  });
+
+  if (!res.ok) {
+    throw new Error('Logout failed');
+  }
+}
+
+

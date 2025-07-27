@@ -33,6 +33,24 @@ const PlaylistPage: React.FC = () => {
   return (
 
     <div style={{ padding: '2rem', maxWidth: '1000px', margin: '0 auto', fontFamily: 'sans-serif' }}>
+      <div
+        style={{
+          position: 'absolute',
+          top: -20,
+          left: -20,
+          right: -20,
+          width: 'calc(100% + 40px)',
+          //width: '100%',
+          height: 'calc(70vh + 20px)',
+          backgroundImage: `url(${playlist.images?.[0]?.url})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: 'blur(20px)',
+          zIndex: -1,
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))',
+        }}
+      />
       <BackButton />
       <DashboardButton />
       <div style={{ display: 'flex', gap: '2rem', marginBottom: '2rem' }}>

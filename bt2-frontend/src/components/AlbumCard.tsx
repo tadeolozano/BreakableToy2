@@ -10,10 +10,10 @@ const AlbumCard: React.FC<AlbumCardProps> = ({ title, imageUrl }) => {
     <div
       style={{
         width: 180,
-        
+        height: 220,
         backgroundColor: '#fafafa',
-        borderRadius: '12px',
-        padding: '0.75rem',
+        borderRadius: '8px',
+        //padding: '0.75rem',
         boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
         textAlign: 'center',
         transition: 'transform 0.2s',
@@ -28,14 +28,16 @@ const AlbumCard: React.FC<AlbumCardProps> = ({ title, imageUrl }) => {
           width: '100%',
           height: 160,
           objectFit: 'cover',
-          borderRadius: '8px',
+          //Borde arriba pero abajo no
+          borderTopLeftRadius: '8px',
+          borderTopRightRadius: '8px',
           marginBottom: '0.5rem',
         }}
       />
       <p
         style={{
           margin: '0.25rem 0',
-          fontWeight: 600,
+          fontWeight: 500,
           fontSize: '0.9rem',
           color: '#1D1D1D',
           lineHeight: '1.1',
