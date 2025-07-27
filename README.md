@@ -26,7 +26,7 @@ Una aplicación web full stack que se integra con la API de Spotify para mostrar
 ## 🛠️ Tecnologías utilizadas
 
 ### Backend
-- Java 17
+- Java 21
 - Spring Boot
 - Gradle
 - Spotify Web API
@@ -47,7 +47,7 @@ Una aplicación web full stack que se integra con la API de Spotify para mostrar
 ### Prerrequisitos
 
 - Node.js y npm
-- Java 17
+- Java 21
 - Spotify Developer Account
 - (Opcional) Docker
 
@@ -59,14 +59,6 @@ Una aplicación web full stack que se integra con la API de Spotify para mostrar
 
 ```
 http://127.0.0.1:8080/auth/spotify/callback
-```
-
-4. Agrega los valores al archivo `application.properties` del backend:
-
-```properties
-spotify.client-id=TU_CLIENT_ID
-spotify.client-secret=TU_CLIENT_SECRET
-spotify.redirect-uri=http://127.0.0.1:8080/auth/spotify/callback
 ```
 
 ---
@@ -86,18 +78,18 @@ cd BreakableToy2
 
 ---
 
-## 2. Configurar el backend
+## 2. Configura el backend
+
+Modifica el archivo `src/main/resources/application.properties.example` eliminando el `.example` y agrega tus valores (no se sube a Git):
+
+```properties
+spotify.client-id=${SPOTIFY_CLIENT_ID}
+spotify.client-secret=${SPOTIFY_CLIENT_SECRET}
+spotify.redirect-uri=http://127.0.0.1:8080/auth/spotify/callback
+```
 
 ```bash
 cd bt2-backend
-```
-
-Modifica (o crea) el archivo `src/main/resources/application.properties` con tus credenciales de Spotify:
-
-```properties
-spotify.client-id=TU_CLIENT_ID
-spotify.client-secret=TU_CLIENT_SECRET
-spotify.redirect-uri=http://127.0.0.1:8080/auth/spotify/callback
 ```
 
 Inicia el servidor backend:
@@ -110,13 +102,20 @@ Inicia el servidor backend:
 
 ## 3. Configurar el frontend
 
+Crea un archivo `.env` en la raíz de `bt2-frontend` con esta línea:
+
+```env
+VITE_API_URL=http://127.0.0.1:9090
+```
+Ejecuta el proyecto con:
+
 ```bash
 cd ../bt2-frontend
 npm install
 npm run dev
 ```
 
-Accede a la aplicación en: [http://127.0.0.1:5173](http://127.0.0.1:5173)
+Accede a la aplicación en: [http://127.0.0.1:9090](http://127.0.0.1:9090)
 
 ---
 
@@ -145,6 +144,4 @@ BreakableToy2/
 
 ## 👤 Autor
 
-**Tadeo Lozano**  
-
----
+**Tadeo Lozano**
