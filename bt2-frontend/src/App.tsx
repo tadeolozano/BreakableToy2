@@ -20,7 +20,7 @@ function App() {
       <Routes>
         
         {/* <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" /> : <LoginPage />} /> */}
-        <Route path="/" element={<Navigate to="/dashboard" />} />
+        <Route path="/" element={<Navigate to="/login" />} />
         
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/me" element={<MePage />} />

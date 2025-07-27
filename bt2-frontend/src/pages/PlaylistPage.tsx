@@ -49,6 +49,7 @@ const PlaylistPage: React.FC = () => {
           zIndex: -1,
           maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))',
           WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))',
+          maxWidth: '100vw', overflowX: 'hidden'
         }}
       />
       <BackButton />
