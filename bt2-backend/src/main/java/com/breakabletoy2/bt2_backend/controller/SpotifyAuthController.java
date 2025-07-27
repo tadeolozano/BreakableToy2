@@ -2,6 +2,7 @@ package com.breakabletoy2.bt2_backend.controller;
 
 import com.breakabletoy2.bt2_backend.service.SpotifyAuthService;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -81,6 +82,26 @@ public class SpotifyAuthController {
         response.addHeader(HttpHeaders.SET_COOKIE, accessCookie.toString());
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletResponse response) {
+        // Crear cookies con expiración inmediata
+        Cookie accessTokenCookie = new Cookie("access_token", null);
+        accessTokenCookie.setPath("/");
+        accessTokenCookie.setHttpOnly(true);
+        accessTokenCookie.setMaxAge(0); // eliminar
+
+        Cookie refreshTokenCookie = new Cookie("refresh_token", null);
+        refreshTokenCookie.setPath("/");
+        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setMaxAge(0); // eliminar
+
+        // Agregar cookies al response
+        response.addCookie(accessTokenCookie);
+        response.addCookie(refreshTokenCookie);
+
+        return ResponseEntity.ok("Logged out");
     }
 
 }

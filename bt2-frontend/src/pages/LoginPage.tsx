@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 
+
 export default function LoginPage() {
   const { isAuthenticated, loading } = useAuth();
 
@@ -23,9 +24,9 @@ export default function LoginPage() {
 
   return (
     <div
+    className="bg-pan-right"
       style={{
         height: "100vh",
-        backgroundColor: "",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -41,13 +42,14 @@ export default function LoginPage() {
           width: "100%",
         }}
       >
+
         
 
         <h1 style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "1rem", color: "#000" }}>
-          Welcome to <span style={{ color: "#1db954" }}>Spotify Stats</span>
+          Welcome to <span style={{ color: "#1db954" }}>Spark Tunes</span>
         </h1>
 
-        <p style={{ color: "#bbb", fontSize: "1rem", marginBottom: "2rem" }}>
+        <p style={{ color: "#111", fontSize: "1rem", marginBottom: "2rem" }}>
           Dive into your top artists, albums and tracks.
         </p>
 

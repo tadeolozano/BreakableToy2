@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { getArtist, getArtistTopTracks, getAlbumsByArtist } from '../services/spotifyApi';
 import BackButton from '../components/BackButton';
 import DashboardButton from '../components/DashboardButton';
+import AlbumCard from '../components/AlbumCard';
 
 const ArtistPage: React.FC = () => {
   const { id } = useParams();
@@ -137,30 +138,13 @@ const ArtistPage: React.FC = () => {
       <h2 style={{ marginTop: '3rem', fontSize: '1.8rem' }}>Discography</h2>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '1rem', justifyContent: 'center' }}>
         {albums.map((album) => (
-          <Link to={`/album/${album.id}`} style={{ textDecoration: 'none' }} key={album.id}>
-            <div
-              style={{
-                width: 160,
-                textAlign: 'center',
-                backgroundColor: '#fafafa',
-                borderRadius: 8,
-                padding: '0.75rem',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
-                transition: 'transform 0.2s',
-              }}
-              onMouseOver={(e) => ((e.currentTarget.style.transform = 'scale(1.03)'))}
-              onMouseOut={(e) => ((e.currentTarget.style.transform = 'scale(1)'))}
-            >
-              <img
-                src={album.images?.[0]?.url}
-                alt={album.name}
-                width="100%"
-                style={{ borderRadius: 6 }}
-              />
-              <p style={{ margin: '0.5rem 0 0.25rem', fontWeight: 600, color: '#000' }}>{album.name}</p>
-              <p style={{ fontSize: '0.85rem', color: '#666' }}>{album.release_date.split('-')[0]}</p>
-            </div>
-          </Link>
+            <Link to={`/album/${album.id}`} style={{ textDecoration: 'none' }} key={album.id}>
+            <AlbumCard
+              imageUrl={album.images?.[0]?.url}
+              title={album.name}
+              
+            />
+            </Link>
         ))}
       </div>
     </div>
