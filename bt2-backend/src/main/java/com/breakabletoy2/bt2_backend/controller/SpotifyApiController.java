@@ -111,13 +111,14 @@ public class SpotifyApiController {
         }
     }
 
-    @GetMapping("/top-artists")
-    public ResponseEntity<?> getTopArtists(@RequestParam("limit") String limit,
+    @GetMapping("/top/artists")
+    public ResponseEntity<?> getTopArtists(@RequestParam("limit") String limit, 
+            @RequestParam(value = "time_range", defaultValue = "medium_term") String timeRange,
             @CookieValue("access_token") String accessToken,
             @CookieValue("refresh_token") String refreshToken,
             HttpServletResponse response) {
 
-        String url = "https://api.spotify.com/v1/me/top/artists?limit=" + limit;
+        String url = "https://api.spotify.com/v1/me/top/artists?time_range=" + timeRange + "&limit=" + limit;
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
@@ -435,10 +436,11 @@ public class SpotifyApiController {
 
     @GetMapping("/me/top/tracks")
     public ResponseEntity<?> getTopTracks(@RequestParam("limit") String limit,
+            @RequestParam(value = "time_range") String timeRange,
             @CookieValue("access_token") String accessToken,
             @CookieValue("refresh_token") String refreshToken,
             HttpServletResponse response) {
-        String url = "https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=" + limit;
+        String url = "https://api.spotify.com/v1/me/top/tracks?time_range=" + timeRange + "&limit=" + limit;
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);

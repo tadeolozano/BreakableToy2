@@ -16,7 +16,8 @@ const TrackCard: React.FC<TrackCardProps> = ({ title, artist, imageUrl, previewU
         gap: '1rem',
         backgroundColor: '#fafafa',
         borderRadius: '12px',
-        padding: '0.75rem',
+        //padding: '0.75rem',
+        paddingRight: '0.75rem',
         boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
         transition: 'transform 0.2s',
         color: '#333',
@@ -27,7 +28,7 @@ const TrackCard: React.FC<TrackCardProps> = ({ title, artist, imageUrl, previewU
       <img
         src={imageUrl}
         alt={title}
-        style={{ width: 60, height: 60, borderRadius: 8, objectFit: 'cover' }}
+        style={{ width: 70, height: 70, borderBottomLeftRadius: '8px', borderTopLeftRadius: '8px', objectFit: 'cover' }}
       />
       <div style={{ flex: 1 }}>
         <p style={{ margin: 0, fontWeight: 600 }}>{title}</p>

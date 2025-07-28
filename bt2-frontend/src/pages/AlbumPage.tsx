@@ -29,7 +29,7 @@ const AlbumPage: React.FC = () => {
   if (!album) return <p style={{ textAlign: 'center' }}>Loading...</p>;
 
   return (
-  <div style={{ position: 'relative' }}>
+  <div style={{ position: 'relative', maxWidth: '100vw', overflowX: 'hidden' }}>
     <div
       style={{
         position: 'absolute',

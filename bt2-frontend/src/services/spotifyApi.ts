@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_API_URL+ '/api/spotify';
+const BASE_URL = import.meta.env.VITE_API_URL + '/api/spotify';
 
 export async function getCurrentUser() {
   const res = await fetch(`${BASE_URL}/me`, { credentials: "include" });
@@ -12,8 +12,8 @@ export async function getCurrentUserPlaylists() {
   return res.json();
 }
 
-export async function getUserTopSongs(limit: number = 10) {
-  const res = await fetch(`${BASE_URL}/me/top/tracks?time_range=short_term&limit=${limit}`, { credentials: "include" });
+export async function getUserTopSongs(limit: number = 10, timeRange: string) {
+  const res = await fetch(`${BASE_URL}/me/top/tracks?time_range=${timeRange}&limit=${limit}`, { credentials: "include" });
   if (!res.ok) throw new Error("Failed to fetch top songs");
   return res.json();
 }
@@ -63,8 +63,8 @@ async function fetchWithRetry(input: RequestInfo, init?: RequestInit): Promise<R
 }
 
 
-export async function getTopArtists(limit: number = 10) {
-  const res = await fetchWithRetry(`${BASE_URL}/top-artists?limit=${limit}`, { credentials: "include" });
+export async function getTopArtists(limit: number, time_range: string) {
+  const res = await fetchWithRetry(`${BASE_URL}/top/artists?time_range=${time_range}&limit=${limit}`, { credentials: "include" });
   if (!res.ok) throw new Error("Failed to fetch top artists");
   return res.json();
 }
@@ -107,8 +107,20 @@ export async function searchSpotify(query: string, types: string[] = ["track", "
 }
 
 export const getPlaylistById = async (id: string) => {
-  const response = await fetchWithRetry(`${BASE_URL}/playlists/${id}`);
+  const response = await fetchWithRetry(`${BASE_URL}/playlists/${id}`, { credentials: "include" });
   if (!response.ok) throw new Error('Failed to fetch playlist');
   return await response.json();
 };
+
+export async function logout() {
+  const res = await fetch('/auth/spotify/logout', {
+    method: 'GET',
+    credentials: 'include',
+  });
+
+  if (!res.ok) {
+    throw new Error('Logout failed');
+  }
+}
+
 

@@ -17,6 +17,8 @@ const MePage: React.FC = () => {
   const [topArtists, setTopArtists] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [topSongs, setTopSongs] = useState<any[]>([]);
+  const [timeRangeArtists,setTimeRangeArtists] = useState<string>('short_term');
+  const [timeRangeTracks, setTimeRangeTracks] = useState<string>('short_term');
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -24,8 +26,8 @@ const MePage: React.FC = () => {
         const [userData, playlistsData, topArtistsData, topSongsData] = await Promise.all([
           getCurrentUser(),
           getCurrentUserPlaylists(),
-          getTopArtists(),
-          getUserTopSongs()
+          getTopArtists(10, timeRangeArtists),
+          getUserTopSongs(10, timeRangeTracks),
         ]);
 
         setUser(userData);
@@ -40,7 +42,9 @@ const MePage: React.FC = () => {
     };
 
     fetchAll();
-  }, []);
+  }, [timeRangeArtists, timeRangeTracks]); 
+
+
 
   if (loading) return <p style={{ padding: '2rem' }}>Loading profile...</p>;
   if (!user) return <p style={{ padding: '2rem' }}>User not found.</p>;
@@ -53,24 +57,26 @@ const MePage: React.FC = () => {
         margin: '0 auto',
         fontFamily: 'sans-serif',
         color: '#111',
+        
       }}
     >
       <div
-      style={{
-        position: 'absolute',
-        top: '-20px',
-        left: '-20px',
-        right: '-20px',
-        height: '65vh',
-        backgroundImage: `url(${user.images?.[0]?.url || '/placeholder.png'})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        filter: 'blur(20px)',
-        zIndex: -1,
-        maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))',
-        WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))',
-      }}
-    />
+        style={{
+          position: 'absolute',
+          top: '-20px',
+          left: '-20px',
+          right: '-20px',
+          height: '65vh',
+          backgroundImage: `url(${user.images?.[0]?.url || '/placeholder.png'})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: 'blur(20px)',
+          zIndex: -1,
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))',
+          maxWidth: '100vw', overflowX: 'hidden'
+        }}
+      />
       <BackButton />
 
       {/* User Info */}
@@ -118,7 +124,26 @@ const MePage: React.FC = () => {
 
       {/* Top Songs */}
       <section style={{ marginBottom: '4rem' }}>
-        <h2 style={{ fontSize: '1.6rem', marginBottom: '1rem' }}>Your Top Songs</h2>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+          <h2 style={{ fontSize: '1.6rem' }}>Your Top Songs</h2>
+          <select
+            value={timeRangeTracks}
+            onChange={(e) => setTimeRangeTracks(e.target.value)}
+            style={{
+              padding: '0.4rem 0.8rem',
+              borderRadius: '8px',
+              border: '1px solid #ccc',
+              backgroundColor: '#f7f7f7',
+              fontWeight: 'bold',
+              color: '#111',
+            }}
+          >
+            <option value="short_term">Last 4 Weeks</option>
+            <option value="medium_term">Last 6 Months</option>
+            <option value="long_term">All Time</option>
+          </select>
+        </div>
+
         <div
           style={{
             display: 'flex',
@@ -140,15 +165,34 @@ const MePage: React.FC = () => {
                 imageUrl={song.album?.images?.[0]?.url ?? ''}
                 previewUrl={song.preview_url}
               />
-
             </Link>
           ))}
         </div>
       </section>
 
+
       {/* Top Artists */}
       <section style={{ marginBottom: '4rem' }}>
-        <h2 style={{ fontSize: '1.6rem', marginBottom: '1rem' }}>Your Top Artists</h2>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+          <h2 style={{ fontSize: '1.6rem' }}>Your Top Artists</h2>
+          <select
+            value={timeRangeArtists}
+            onChange={(e) => setTimeRangeArtists(e.target.value)}
+            style={{
+              padding: '0.4rem 0.8rem',
+              borderRadius: '8px',
+              border: '1px solid #ccc',
+              backgroundColor: '#f7f7f7',
+              fontWeight: 'bold',
+              color: '#111',
+            }}
+          >
+            <option value="short_term">Last 4 Weeks</option>
+            <option value="medium_term">Last 6 Months</option>
+            <option value="long_term">All Time</option>
+          </select>
+        </div>
+
         <div
           style={{
             display: 'flex',
@@ -175,6 +219,7 @@ const MePage: React.FC = () => {
           ))}
         </div>
       </section>
+
 
       {/* Playlists */}
       <section>

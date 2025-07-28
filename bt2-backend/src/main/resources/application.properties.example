@@ -2,8 +2,8 @@ spring.application.name=bt2-backend
 
 server.port=8080
 
-spotify.client.id=81885d4f3c2348d89989edbfb2fa9bf7
-spotify.client.secret=80b6c49c993d4da5a6c555801cce9ef6
+spotify.client.id=${SPOTIFY_CLIENT_ID}
+spotify.client.secret=${SPOTIFY_CLIENT_SECRET}
 spotify.redirect.uri=http://127.0.0.1:8080/auth/spotify/callback
 
 spotify.auth.url=https://accounts.spotify.com/authorize
